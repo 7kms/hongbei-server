@@ -103,7 +103,7 @@ schema.methods = {
 
 schema.statics = {
   async getProfile (obj){
-    return await schema.findOne(obj).select({ username: 1, createdAt:1 });
+    return await admin.findOne(obj).select({ username: 1, createdAt:1 });
   }
 }
 const admin = mongoose.model('Admin', schema);

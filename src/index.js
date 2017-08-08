@@ -22,7 +22,12 @@ app.on('error',function(err,ctx){
     }
     print(err);
 })
-
+app.use(async(ctx,next)=>{
+    let requestDate = Date.now();
+    print(ctx.request.url)
+    await next();
+    print(ctx.response, Date.now() - requestDate)
+})
 
 app.use(middleware());
 app.use(routes());

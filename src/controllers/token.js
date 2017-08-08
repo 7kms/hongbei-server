@@ -32,7 +32,7 @@ export let generate = async(ctx, next)=>{
       const token = jwt.sign({
         uid: user._id,
         name: user.name,
-        exp: Math.floor(Date.now()/1000) + 24 * 60 * 60//1 hours
+        exp: Math.floor(Date.now()/1000) + 24 * 60 * 60
       }, config.jwt.cert);
       ctx.status = 200;
       ctx.body = {

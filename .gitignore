@@ -139,3 +139,7 @@ fabric.properties
 
 #vscode
 .vscode
+
+
+#logic
+uploads/*

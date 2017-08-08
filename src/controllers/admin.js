@@ -1,10 +1,9 @@
 import Admin from '../models/admin'
-// import {print} from '../utils'
+import {print} from '../utils'
 export let login = async (ctx, next)=>{
     let { username, password } = ctx.request.body;
-    console.log(username,password)
+    print(username,password)
     let schema = await Admin.findOne({username});
-    console.log(schema)
     if(!schema){
         await new Admin({username, password}).save();
         await next();

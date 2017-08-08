@@ -13,4 +13,4 @@ export let logger = Logger({
 /**
  * debug plugin
  */
-export let print = debug('server')
+export let print = debug('hongbei-server')

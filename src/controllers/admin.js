@@ -4,18 +4,14 @@ export let login = async (ctx, next)=>{
     let { username, password } = ctx.request.body;
     print(username,password)
     let schema = await Admin.findOne({username});
-    if(!schema){
-        await new Admin({username, password}).save();
-        await next();
-    }
-    if(schema.authenticate(password)){
+    if(schema && schema.authenticate(password)){
         await next();
         ctx.status = 200;
         ctx.body.msg = 'login success'
     }else{
         ctx.status = 401;
         ctx.body = {
-            data: 'login failed'
+            msg: 'username or password is not right'
         }
     }
 }

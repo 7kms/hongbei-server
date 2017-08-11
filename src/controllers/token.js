@@ -27,19 +27,17 @@ export let generate = async(ctx, next)=>{
   })
   if(user !== null){
     console.log(user)
-    // console.log(user.password)
     if(user.authenticate(password)){
       const token = jwt.sign({
         uid: user._id,
-        name: user.name,
+        name: user.username,
         exp: Math.floor(Date.now()/1000) + 24 * 60 * 60
       }, config.jwt.cert);
       ctx.status = 200;
       ctx.body = {
         success: true,
         data:{
-          uid: user._id,
-          name: user.name,
+          user,
           token
         }
       }

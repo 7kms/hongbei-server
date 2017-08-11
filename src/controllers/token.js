@@ -11,10 +11,13 @@ export let verify =  async(ctx,next)=>{
          tokenContent = jwt.verify(token, config.jwt.cert);
          ctx.token = tokenContent
     }catch(err){
-        if('TokenExpiredError' === err.name){
-            ctx.throw(401,'token expired');
+        ctx.status = 401;
+        ctx.body={
+          msg:'invalid token'
         }
-        ctx.throw(401,'invalid token')
+        if('TokenExpiredError' === err.name){
+          ctx.body.msg = 'token expired'
+        }
     }
     print('token check success')
     await next()

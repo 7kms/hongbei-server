@@ -8,6 +8,7 @@ export let login = async (ctx, next)=>{
         await next();
         ctx.status = 200;
         ctx.body.msg = 'login success'
+        ctx.cookies.set('token', 'login success') 
     }else{
         ctx.status = 401;
         ctx.body = {

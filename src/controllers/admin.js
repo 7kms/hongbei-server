@@ -1,14 +1,17 @@
 import Admin from '../models/admin'
-import {print} from '../utils'
-export let login = async (ctx, next)=>{
+// import {print} from '../utils'
+export let login = async (ctx)=>{
     let { username, password } = ctx.request.body;
-    print(username,password)
-    let schema = await Admin.findOne({username});
-    if(schema && schema.authenticate(password)){
-        await next();
+    let user = await Admin.findOne({username});
+    if(user && user.authenticate(password)){
+        ctx.session.user = user
         ctx.status = 200;
-        ctx.body.msg = 'login success'
-        ctx.cookies.set('token', 'login success') 
+        ctx.body = {
+            msg: 'login success',
+            data:{
+                user
+            }
+        }
     }else{
         ctx.status = 401;
         ctx.body = {
@@ -16,9 +19,16 @@ export let login = async (ctx, next)=>{
         }
     }
 }
+export let loginout = async (ctx)=>{
+    ctx.session = null
+    ctx.status = 200;
+    ctx.body = {
+        msg: 'login out'
+    }
+}
 export let profile = async (ctx)=>{
-    let userId = ctx.token.uid;
-    let user = await Admin.getProfile({_id: userId})
+    // let userId = ctx.userId;
+    let user = ctx.session.user
     ctx.status = 200;
     ctx.body = {
         data: user

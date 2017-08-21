@@ -21,15 +21,17 @@ export let cakeInsert = async (ctx)=>{
     let obj = {
             cover:'',
             pictures:[],
-            name:'baijiud',
-            description:'it is nice',
-            price: 188,
-            standard:[],
+            name:'',
+            description:'',
+            price: 0,
+            standards:[],
             isPromotion: false,
             promotionUrl: '',
-            sales: 18,
-            category: 'jiusss'
+            sales: 0,
+            onSale: false,
+            category: ''
     }
+    obj = Object.assign(obj, ctx.request.body)
     let cake = await new Cake(obj).save()
     ctx.body = {
         data: cake

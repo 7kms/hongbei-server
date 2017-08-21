@@ -6,10 +6,8 @@ import middleware from './middleware';
 import routes from './routes';
 import onerror from 'koa-onerror';
 import {logger,print} from './utils/index'
-import session from 'koa-session'
-// import session from 'koa-generic-session'
-// import session from 'koa2-session-store'
-import MongooseStore from './lib/session-mongoose'
+import session from 'koa-session';
+import MongooseStore from './lib/session-mongoose';
 
 export default ()=>{
     const app = new Koa();

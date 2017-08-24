@@ -4,12 +4,12 @@ import crypto from 'crypto'
 const schema = new mongoose.Schema({
     username: {
        type: String,
-       required: true
+       required: true,
+       unique: true
     },
     hashed_password: { type: String, default: '' },
-    createdAt  : { type : Date, default : Date.now },
     salt: { type: String, default: '' },
-},{ collection: 'admin' });
+},{ collection: 'admin' ,timestamps: true});
 
 const validatePresenceOf = value => value && value.length;
 

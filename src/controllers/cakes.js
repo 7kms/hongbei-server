@@ -11,7 +11,7 @@ export let cakeDetail = async (ctx)=>{
 export let cakeList = async (ctx)=>{
     console.log(ctx.query)
     let { limit=10, skip=0 } = ctx.query;
-    let arr = await Cake.find().limit(parseInt(limit)).skip(parseInt(skip));
+    let arr = await Cake.find().populate('category','name').limit(parseInt(limit)).skip(parseInt(skip));
     ctx.body = {
         data: arr
     }

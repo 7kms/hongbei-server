@@ -5,7 +5,8 @@ const CakeSchema = new Schema({
    pictures:[],
    name: {
        type: String,
-       unique: true
+       unique: true,
+       required: true
    },
    description: String,
    store: Number,

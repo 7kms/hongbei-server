@@ -13,5 +13,6 @@ export default () => {
     router.use('/admin', admin.routes())
     router.use('/cakes', cake.routes())
     router.use('/category', category.routes())
+    router.use(router.allowedMethods())
     return router.routes();
 }

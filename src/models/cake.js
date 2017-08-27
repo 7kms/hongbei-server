@@ -1,6 +1,10 @@
 import mongoose from 'mongoose'
 let Schema = mongoose.Schema;
 const CakeSchema = new Schema({
+   isRemoved: {
+       type: Boolean,
+       default: false
+   },
    cover: String,
    pictures:[],
    name: {

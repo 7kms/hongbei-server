@@ -30,9 +30,15 @@ export let cakeDetail = async (ctx)=>{
 export let cakeList = async (ctx)=>{
     console.log(ctx.query)
     let { limit=10, skip=0 } = ctx.query;
-    let arr = await Cake.find({$or:[{isRemoved:false},{isRemoved:{$exists:false}}]}).populate('category','name').limit(parseInt(limit)).skip(parseInt(skip));
+    let total = await Cake.find({$or:[{isRemoved:false},{isRemoved:{$exists:false}}]}).count()
+    let arr = await Cake.find({$or:[{isRemoved:false},{isRemoved:{$exists:false}}]})
+    .populate('category','name')
+    .limit(parseInt(limit))
+    .skip(parseInt(skip))
+    .sort({updatedAt:1});
     ctx.body = {
-        data: arr
+        data: arr,
+        total
     }
 }
 

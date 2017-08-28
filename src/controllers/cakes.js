@@ -90,3 +90,11 @@ export let cakeDelete = async (ctx)=>{
         data: arr
     }
 }
+
+export let cakeInsertMany = async (ctx)=>{
+    let arr = require('../../data/cakes.js')
+    let cake = Cake.insertMany(arr)
+    ctx.body = {
+        data: cake
+    }
+}

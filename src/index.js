@@ -27,7 +27,7 @@ export default ()=>{
         let requestDate = Date.now();
         print(ctx.request.url)
         await next();
-        print(ctx.body, Date.now() - requestDate)
+        print(ctx.request.url, Date.now() - requestDate)
     })
     app.use(session({
         key:'hbadmin',

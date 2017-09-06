@@ -1,4 +1,6 @@
 import Entity from '../models/category';
+import Cake from '../models/cake';
+
 
 export let itemList = async (ctx)=>{
     console.log(ctx.query)
@@ -68,10 +70,21 @@ export let itemUpdate = async (ctx)=>{
 
 export let itemDelete = async (ctx)=>{
     try{
-        let arr = await Entity.remove({_id: ctx.params.id})
-        ctx.body = {
-            data: arr
+        let count = await Cake.find({category:ctx.params.id}).count()
+        console.log(count);
+        if(count > 0){
+            ctx.status = 417
+            ctx.body = {
+                msg: '该分类下还有商品,不能删除此分类!'
+            }
+        }else{
+            let arr = await Entity.remove({_id: ctx.params.id})
+            ctx.status = 200
+            ctx.body = {
+                data: arr
+            }
         }
+        
     }catch(err){
         ctx.throw(err)
     }

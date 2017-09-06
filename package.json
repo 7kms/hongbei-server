@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "product": "node ./index.js",
     "start": "cross-env DEBUG=* NODE_ENV=development nodemon ./index.js"
   },
   "author": "",

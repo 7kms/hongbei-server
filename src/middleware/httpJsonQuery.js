@@ -12,7 +12,9 @@ let dev = () => {
                 },{})
                 delete paramsObj.projection;
             }
-            ctx.request.query = paramsObj
+            Object.assign(ctx.request.query, paramsObj)
+            delete ctx.request.query.params
+            console.log(paramsObj,ctx.request.query)
         }
         await next();
     }

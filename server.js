@@ -14,5 +14,6 @@ const databaseConfig = (process.env.NODE_ENV == 'production' ) ? production : de
     console.log(`Server started on port ${port}`);
   } catch (error) {
     console.error('Unable to connect to database');
+    throw new error(error)
   }
 })();

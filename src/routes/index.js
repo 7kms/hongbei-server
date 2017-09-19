@@ -3,6 +3,7 @@ import admin from './admin';
 import cake from './cakes';
 import token from './token';
 import category from './category';
+import client from './client'
 
 // import upload from './upload';
 
@@ -13,6 +14,7 @@ export default () => {
     router.use('/admin', admin.routes())
     router.use('/cakes', cake.routes())
     router.use('/category', category.routes())
+    router.use('/client', client.routes())
     router.use(router.allowedMethods())
-    return router.routes();
+    return router.routes()
 }

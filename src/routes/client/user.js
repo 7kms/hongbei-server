@@ -1,20 +1,8 @@
 import Router from 'koa-router';
-import { onLogin } from '../../controllers/client/user'
+import { onLogin, profile, getAddress } from '../../controllers/client/user';
+import { generateToken, needLogin } from '../../controllers/client/token'
 let router = new Router()
-router.get('/', async (ctx) => {
-    let { user } = ctx.session
-    if(!user){
-        ctx.status = 401
-        ctx.body = {
-            code: 401,
-            msg: 'not login'
-        }
-    }else{
-        ctx.body = {
-            data:user
-        }
-    }
-})
-
-router.post('/onlogin', onLogin)
+router.get('/', profile)
+router.get('/address', needLogin, getAddress)
+router.post('/onlogin', onLogin, generateToken)
 export default router;

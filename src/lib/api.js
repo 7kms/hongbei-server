@@ -24,7 +24,6 @@ let getConfig = (method, paramObj = {})=>{
 
 export const $get = (url, paramObj = {})=>{
     url = `${url}?${querystring.stringify(paramObj)}`;
-    console.log(url)
     return fetch(url, baseFetchConfig)
             .then(checkStatus)
 }

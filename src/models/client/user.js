@@ -2,7 +2,11 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 
 const schema = new mongoose.Schema({
-    wechatInfo: {}
+    wechatInfo: {},
+    address:{
+      type: Array,
+      default: []
+    }
 },{ collection: 'user' ,timestamps: true});
 
 // const validatePresenceOf = value => value && value.length;

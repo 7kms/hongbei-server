@@ -1,18 +1,21 @@
 import {jscode2session,WXBizDataCrypt} from '../../lib/wechat-api'
+
 import User from '../../models/client/user';
-export let onLogin = async (ctx) => {
+export let onLogin = async (ctx, next) => {
     let { code,encryptedData,iv } = ctx.request.body
     let { session_key } = await jscode2session(code)
     let wxCrypt = new WXBizDataCrypt(session_key)
     let data = wxCrypt.decryptData(encryptedData, iv)
     delete data.watermark
-    let {openId} = data;
+    let { openId } = data;
     let user = await User.findOneAndUpdate({'wechatInfo.openId': openId},{wechatInfo:data},{upsert: true})
-    ctx.session.user = user
+    ctx._id = user._id
     ctx.body = {
-        data: user
+       data: user
     }
+    await next()
 }
+
 
 export let loginout = async (ctx)=>{
     ctx.session = null
@@ -23,10 +26,64 @@ export let loginout = async (ctx)=>{
 }
 
 export let profile = async (ctx)=>{
-    // let userId = ctx.userId;
-    let user = ctx.session.user
-    ctx.status = 200;
+    let { _id } = ctx
+    if(!_id){
+        ctx.status = 401
+        ctx.body = {
+            code: 401,
+            msg: 'not login'
+        }
+    }else{
+        let user = await User.findById(_id,{wechatInfo:1})
+        ctx.body = {
+            data: user.wechatInfo
+        }
+    }
+}
+
+export let getAddress = async (ctx)=>{
+    let user = await User.findById(ctx._id)
+    console.log(user)
+    let list = user.address || [];
+    list = [
+        {
+            cityName:"广州市",
+            countyName:"海珠区",
+            detailInfo:"新港中路397号",
+            nationalCode:"510000",
+            postalCode:"510000",
+            provinceName:"广东省",
+            telNumber:"020-81167888",
+            userName:"张三",
+            isDefault: false
+        },
+        {
+            cityName:"广州市",
+            countyName:"海珠区",
+            detailInfo:"新港中路397号",
+            nationalCode:"510000",
+            postalCode:"510000",
+            provinceName:"广东省",
+            telNumber:"020-81167888",
+            userName:"张三",
+            isDefault: false
+        },
+        {
+            cityName:"广州市",
+            countyName:"海珠区",
+            detailInfo:"新港中路397号",
+            nationalCode:"510000",
+            postalCode:"510000",
+            provinceName:"广东省",
+            telNumber:"020-81167888",
+            userName:"张三",
+            isDefault: true
+        }
+    ]
     ctx.body = {
-        data: user
+        code: 200,
+        data: {
+            list
+        }
     }
 }

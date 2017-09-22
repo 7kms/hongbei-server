@@ -10,5 +10,5 @@ export function connectDatabase(uri) {
       .once('open', () => resolve(mongoose.connections[0]));
 
     mongoose.connect(uri);
-  });
+  })
 }

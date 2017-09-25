@@ -45,45 +45,36 @@ export let getAddress = async (ctx)=>{
     let user = await User.findById(ctx._id)
     console.log(user)
     let list = user.address || [];
-    list = [
-        {
-            cityName:"广州市",
-            countyName:"海珠区",
-            detailInfo:"新港中路397号",
-            nationalCode:"510000",
-            postalCode:"510000",
-            provinceName:"广东省",
-            telNumber:"020-81167888",
-            userName:"张三",
-            isDefault: false
-        },
-        {
-            cityName:"广州市",
-            countyName:"海珠区",
-            detailInfo:"新港中路397号",
-            nationalCode:"510000",
-            postalCode:"510000",
-            provinceName:"广东省",
-            telNumber:"020-81167888",
-            userName:"张三",
-            isDefault: false
-        },
-        {
-            cityName:"广州市",
-            countyName:"海珠区",
-            detailInfo:"新港中路397号",
-            nationalCode:"510000",
-            postalCode:"510000",
-            provinceName:"广东省",
-            telNumber:"020-81167888",
-            userName:"张三",
-            isDefault: true
-        }
-    ]
     ctx.body = {
         code: 200,
         data: {
             list
+        }
+    }
+}
+
+export let addAddress = async (ctx) => {
+    let user = await User.findById(ctx._id)
+    let address = ctx.request.body.address;
+    if(!Array.isArray(address)){
+        ctx.status = 417
+        ctx.body = {
+            err:'address must be array'
+        }
+    }
+    user.address = address
+    try{
+        await user.save()
+        ctx.body = {
+            data: {
+                code: 200,
+                msg: 'success'
+            }
+        }
+    }catch(err){
+        ctx.status = 403
+        ctx.body = {
+            err
         }
     }
 }

@@ -19,7 +19,7 @@ export let cakeDetail = async (ctx)=>{
         }
         
     }catch(err){
-        ctx.status = 503,
+        ctx.status = 500,
         ctx.body = {
             msg: err
         }
@@ -29,10 +29,10 @@ export let cakeDetail = async (ctx)=>{
 
 export let cakeList = async (ctx)=>{
     console.log(ctx.request.query)
-    let { limit=10, skip=0, options} = ctx.request.query;
+    let { limit=10, skip=0, options,projections={}} = ctx.request.query;
     console.log(options);
-    let total = await Cake.find({$and:[options,{$or:[{isRemoved:false},{isRemoved:{$exists:false}}]}]}).count()
-    let arr = await Cake.find({$and:[options,{$or:[{isRemoved:false},{isRemoved:{$exists:false}}]}]})
+    let total = await Cake.find({$and:[options,{$or:[{isRemoved:false},{isRemoved:{$exists:false}}]}]},projections).count()
+    let arr = await Cake.find({$and:[options,{$or:[{isRemoved:false},{isRemoved:{$exists:false}}]}]},projections)
     .populate('category','name')
     .limit(parseInt(limit))
     .skip(parseInt(skip))

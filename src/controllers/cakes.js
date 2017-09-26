@@ -11,13 +11,12 @@ export let cakeDetail = async (ctx)=>{
                 data: res
             }
         }else{
-            ctx.status = 503
+            ctx.status = 417
             ctx.body = {
                 err: "数据不存在"
             }
             console.log(ctx.body)
         }
-        
     }catch(err){
         ctx.status = 500,
         ctx.body = {

@@ -19,6 +19,10 @@ const CakeSchema = new Schema({
    isPromotion:Boolean,
    promotionUrl: String,
    onSale: Boolean,
+   onMainPage: {
+       type: Boolean,
+       default: false
+   },
    sales: Number,
    category: {
        type: Schema.Types.ObjectId,

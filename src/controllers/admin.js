@@ -2,8 +2,9 @@ import Admin from '../models/admin'
 // import {print} from '../utils'
 export let login = async (ctx)=>{
     let { username, password } = ctx.request.body;
-    console.log({ username, password })
+    // console.log({ username, password })
     let user = await Admin.findOne({username});
+    console.log(user)
     if(user && user.authenticate(password)){
         ctx.session.user = user
         ctx.status = 200;
@@ -18,6 +19,7 @@ export let login = async (ctx)=>{
         if(!number){
             let { username, password } = ctx.request.body;
             let user = await new Admin({username,password}).save()
+            // console.log(user.hashed_password)
             ctx.session.user = user
             console.log(user)
             ctx.status = 200;

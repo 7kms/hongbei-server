@@ -27,7 +27,7 @@ export let remove = async (ctx)=>{
     let list =  await Cart.find({_id:{$in:cart_ids}})
     let flag = true
     list.forEach(item=>{
-        if(item.user != user._id){
+        if(String(item.user) != String(user._id)){
             flag = false
         }
     })

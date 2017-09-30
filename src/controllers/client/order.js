@@ -1,17 +1,19 @@
 
 import Order from '../../models/client/order';
 import User from '../../models/client/user';
+import {remove as cartRemove} from './cart'
 
 export let insert = async (ctx)=>{
     let user = await User.findById(ctx._id)
-    let { address, goods } = ctx.request.body;
-    let order = new Order({user:user._id,address,goods})
+    let { address, goods, cart_ids,totalPrice } = ctx.request.body;
+    let order = new Order({user:user._id,address,goods,totalPrice})
     try{
-        await order.save()
+        await order.save();
         ctx.body={
             code:200,
             data:'success'
         }
+        cartRemove(user,cart_ids)
     }catch(e){
         ctx.status = 500
         ctx.body={

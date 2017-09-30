@@ -7,8 +7,9 @@ const schema = new Schema({
         required: true
     },
     address:{},
-    goods:{
-        type: Schema.Types.Array,
+    goods:[],
+    totalPrice:{
+        type: String,
         required: true
     },
     paid: {

@@ -21,28 +21,42 @@ export let insert = async (ctx)=>{
     }
 }
 
-export let remove = async (ctx)=>{
-    let user = await User.findById(ctx._id)
-    let { cart_ids } = ctx.request.body
+// export let remove = async (ctx)=>{
+//     let user = await User.findById(ctx._id)
+//     let { cart_ids } = ctx.request.body
+//     let list =  await Cart.find({_id:{$in:cart_ids}})
+//     let flag = true
+//     list.forEach(item=>{
+//         if(String(item.user) != String(user._id)){
+//             flag = false
+//         }
+//     })
+//     if(!flag){
+//         ctx.status = 403
+//         ctx.body={
+//             code:403,
+//             msg:'not authorized'
+//         }
+//     }else{
+//         let data = await Cart.remove({_id:{$in:cart_ids}})
+//         ctx.body={
+//             code:200,
+//             data
+//         }
+//     }
+// }
+
+export let remove = async (user,cart_ids)=>{
     let list =  await Cart.find({_id:{$in:cart_ids}})
-    let flag = true
+    let flag = true;
     list.forEach(item=>{
         if(String(item.user) != String(user._id)){
             flag = false
         }
     })
-    if(!flag){
-        ctx.status = 403
-        ctx.body={
-            code:403,
-            msg:'not authorized'
-        }
-    }else{
-        let data = await Cart.remove({_id:{$in:cart_ids}})
-        ctx.body={
-            code:200,
-            data
-        }
+    if(flag){
+        let res = await Cart.remove({_id:{$in:cart_ids}})
+        console.log(res)
     }
 }
 

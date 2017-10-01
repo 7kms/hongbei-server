@@ -28,7 +28,7 @@ export let cakeDetail = async (ctx)=>{
 
 export let cakeList = async (ctx)=>{
     console.log(ctx.request.query)
-    let { limit=10, skip=0, options,projections={}} = ctx.request.query;
+    let { limit=10, skip=0, options={},projections={}} = ctx.request.query;
     console.log(options);
     let total = await Cake.find({$and:[options,{$or:[{isRemoved:false},{isRemoved:{$exists:false}}]}]},projections).count()
     let arr = await Cake.find({$and:[options,{$or:[{isRemoved:false},{isRemoved:{$exists:false}}]}]},projections)

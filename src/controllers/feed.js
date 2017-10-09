@@ -41,7 +41,7 @@ export let getList = async (ctx)=>{
     console.log(options);
     let total = await Feed.find({$and:[options,{$or:[{isRemoved:false},{isRemoved:{$exists:false}}]}]},projections).count()
     let arr = await Feed.find({$and:[options,{$or:[{isRemoved:false},{isRemoved:{$exists:false}}]}]},projections)
-    .populate('user')
+    .populate('user','wechatInfo')
     .limit(parseInt(limit))
     .skip(parseInt(skip))
     .sort({updatedAt:-1});

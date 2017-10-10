@@ -15,6 +15,10 @@ const schema = new Schema({
     paid: {
         type: Boolean,
         default: false
+    },
+    onDeliver: {
+        type: Boolean,
+        default: false
     }
 },{ collection: 'order' ,timestamps: true});
 

@@ -4,9 +4,11 @@ import cake from './cakes';
 import token from './token';
 import category from './category';
 import course from './course';
-import client from './client';
+
 import feed from './feed';
-import { checkToken } from '../controllers/client/token'
+import order from './orders';
+import client from './client';
+import { checkToken } from '../controllers/client/token';
 
 // import upload from './upload';
 
@@ -19,6 +21,7 @@ export default () => {
     router.use('/category', category.routes())
     router.use('/course', course.routes())
     router.use('/feed', feed.routes())
+    router.use('/orders', order.routes())
     router.use('/client', checkToken, client.routes())
     router.use(router.allowedMethods())
     return router.routes()

@@ -2,9 +2,9 @@ import Entity from '../models/course';
 
 export let itemList = async (ctx)=>{
     console.log(ctx.query)
-    let { limit=0, skip=0 } = ctx.query;
+    let { limit=0, skip=0 , options = {}} = ctx.query;
     try{
-        let arr = await Entity.find().select().limit(parseInt(limit)).skip(parseInt(skip)).exec();
+        let arr = await Entity.find(options).select().limit(parseInt(limit)).skip(parseInt(skip)).sort({updatedAt:-1}).exec();
         ctx.body = {
             data: arr
         }

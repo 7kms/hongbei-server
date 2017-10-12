@@ -10,7 +10,11 @@ const itemSchema = new Schema({
        type: String,
        required: true
    },
-   sections:[]
+   sections:[],
+   isOnline:{
+       type: Boolean,
+       default: false
+   }
 },{ collection: 'course' ,timestamps: true});
 
 const course = mongoose.model('Course', itemSchema);

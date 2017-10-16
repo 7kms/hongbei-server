@@ -1,14 +1,16 @@
 
 import Order from '../../models/client/order';
 import User from '../../models/client/user';
-import {remove as cartRemove} from './cart'
+import {changeSales} from '../cakes'
+import {remove as cartRemove} from './cart';
 
 export let insert = async (ctx)=>{
     let user = await User.findById(ctx._id)
     let { address, goods, cart_ids,totalPrice } = ctx.request.body;
-    let order = new Order({user:user._id,address,goods,totalPrice})
+    let order = new Order({user:user._id,address,goods,totalPrice});
     try{
         await order.save();
+        await changeSales(goods);
         ctx.body={
             code:200,
             data:'success'

@@ -8,7 +8,8 @@ export let onLogin = async (ctx, next) => {
     let data = wxCrypt.decryptData(encryptedData, iv)
     delete data.watermark
     let { openId } = data;
-    let user = await User.findOneAndUpdate({'wechatInfo.openId': openId},{wechatInfo:data},{upsert: true})
+    let user = await User.findOneAndUpdate({'wechatInfo.openId': openId},{wechatInfo:data},{upsert: true, new:true})
+    console.log(user)
     ctx._id = user._id
     ctx.body = {
        data: user

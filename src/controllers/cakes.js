@@ -98,3 +98,19 @@ export let cakeInsertMany = async (ctx)=>{
         data: cake
     }
 }
+
+export let changeSales = async (goodArr)=>{
+    let obj = {}
+    for(let i = goodArr.length-1; i>= 0; i--){
+        let good = goodArr[i];
+        if(!obj[good.good_id]){
+            obj[good.good_id] = 0;
+        }
+        obj[good.good_id] += parseInt(good.number)
+    }
+    for(let i in obj){
+        let good = await Cake.findById(i);
+        good.sales += obj[i];
+        await Cake.findOneAndUpdate({_id:i},{sales: good.sales})
+    }
+}

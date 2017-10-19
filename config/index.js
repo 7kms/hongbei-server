@@ -1,6 +1,9 @@
 // let _ = require('lodash')
+import DEV_CON from './dev'
+import PRO_CON from './product'
+import TEST_CON from './test'
 import path from 'path'
-let config  = {
+let obj  = {
     app:{
         port: 3100
     },
@@ -15,4 +18,7 @@ let config  = {
         secret: '9063668629641d4b8083be997d7c5715',//AppSecret
     }
 }
+let envObj = process.env.NODE_ENV == 'production' ? PRO_CON : process.env.NODE_ENV == 'test' ? TEST_CON : DEV_CON;  
+const config = Object.assign({},obj,envObj)
+// console.log(config)
 export default config;

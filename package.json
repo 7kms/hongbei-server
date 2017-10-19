@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "product": "node ./index.js",
-    "start": "cross-env DEBUG=hongbei* NODE_ENV=development nodemon ./index.js"
+    "dev": "NODE_ENV=development npm run start",
+    "test": "NODE_ENV=test npm run start",
+    "product": "cross-env NODE_ENV=production node ./index.js",
+    "start": "cross-env DEBUG=hongbei*  nodemon ./index.js"
   },
   "author": "",
   "license": "ISC",

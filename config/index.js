@@ -14,8 +14,8 @@ let obj  = {
         logdir:path.resolve(__dirname,'../logs')
     },
     wechat:{
-        appid:'wx07717b0f6f3ccb61',//AppID wx868cb0ffc40ace47
-        secret: '9063668629641d4b8083be997d7c5715',//AppSecret
+        appid:'wxf8600b48303b5dfb',//AppID wx868cb0ffc40ace47
+        secret: 'ec6edce372d8e333716b6e8981156a2e',//AppSecret
     }
 }
 let envObj = process.env.NODE_ENV == 'production' ? PRO_CON : process.env.NODE_ENV == 'test' ? TEST_CON : DEV_CON;  

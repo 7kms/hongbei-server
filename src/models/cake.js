@@ -14,7 +14,7 @@ const CakeSchema = new Schema({
    },
    description: String,
    store: Number,
-   price: Number,
+   priceInfo:[],
    standards:[],
    isPromotion:Boolean,
    promotionUrl: String,

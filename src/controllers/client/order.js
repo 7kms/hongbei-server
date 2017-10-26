@@ -66,3 +66,30 @@ export let getList = async (ctx)=>{
         }
     }
 }
+
+export let getDetail = async (ctx)=>{
+    let user = await User.findById(ctx._id)
+    console.log(ctx.params.id)
+    try{
+        let res = await Order.findOne({_id: ctx.params.id,user:user._id,$or:[{isRemoved:false},{isRemoved:{$exists:false}}]})
+        console.log(res)
+        if(res){
+            ctx.status = 200
+            ctx.body = {
+                data: res
+            }
+        }else{
+            ctx.status = 417
+            ctx.body = {
+                err: "数据不存在"
+            }
+            console.log(ctx.body)
+        }
+    }catch(err){
+        ctx.status = 500,
+        ctx.body = {
+            msg: err
+        }
+    }
+    
+}

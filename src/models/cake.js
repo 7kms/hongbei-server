@@ -13,6 +13,7 @@ const CakeSchema = new Schema({
        required: true
    },
    description: String,
+   helpInfo: String,
    store: Number,
    priceInfo:[],
    standards:[],

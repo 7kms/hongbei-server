@@ -1,6 +1,6 @@
 import Router from 'koa-router';
-import { itemDetail,itemList } from '../../controllers/course'
+import { itemDetail,itemListClient } from '../../controllers/course'
 let router = new Router();
-router.get('/',itemList)
+router.get('/',itemListClient)
 router.get('/:id',itemDetail)
 export default router;

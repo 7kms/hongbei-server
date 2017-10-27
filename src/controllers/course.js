@@ -1,8 +1,20 @@
 import Entity from '../models/course';
 
-export let itemList = async (ctx)=>{
+export let itemListClient = async (ctx)=>{
     let { limit=0, skip=0 , options = {}} = ctx.query;
     options.isOnline = true;
+    try{
+        let arr = await Entity.find(options).select().limit(parseInt(limit)).skip(parseInt(skip)).sort({updatedAt:-1}).exec();
+        ctx.body = {
+            data: arr
+        }
+    }catch(err){
+        ctx.throw(err)
+    }
+}
+
+export let itemList = async (ctx)=>{
+    let { limit=0, skip=0 , options = {}} = ctx.query;
     try{
         let arr = await Entity.find(options).select().limit(parseInt(limit)).skip(parseInt(skip)).sort({updatedAt:-1}).exec();
         ctx.body = {

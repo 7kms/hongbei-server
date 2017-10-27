@@ -6,6 +6,7 @@ const CakeSchema = new Schema({
        default: false
    },
    cover: String,
+   mainPageCover: String,
    pictures:[],
    name: {
        type: String,

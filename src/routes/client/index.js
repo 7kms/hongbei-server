@@ -6,6 +6,7 @@ import orders from './orders'
 import course from './course'
 import feed from './feed'
 import category from './category'
+import activity from './activity'
 import { needLogin } from '../../controllers/client/token'
 let router = new Router()
 
@@ -14,6 +15,7 @@ router.use('/goods', goods.routes())
 router.use('/course', course.routes())
 router.use('/feed', needLogin, feed.routes())
 router.use('/category', category.routes())
+router.use('/activity', activity.routes())
 router.use('/cart', needLogin, carts.routes())
 router.use('/order', needLogin, orders.routes())
 

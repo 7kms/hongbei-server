@@ -12,7 +12,7 @@ const port = process.env.PORT || 4000;
     console.log(dburl)
     const info = await connectDatabase(dburl);
     console.log(`Connected to ${info.host}:${info.port}/${info.name}`);
-    await app().listen(port);
+    await app().listen(port,'0.0.0.0');
     console.log(`Server started on port ${port}`);
   } catch (error) {
     console.log('Unable to connect to database');

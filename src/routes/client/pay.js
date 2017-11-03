@@ -5,7 +5,7 @@ let router = new Router();
 
 router.post('/',async (ctx)=>{
    let {_id} = ctx.request.body;
-   console.log(ctx.request.ip,ctx.request.ips)
+   console.log(ctx.request.ip,ctx.request.ips,ctx.request.headers)
    let res = await prepay({
         openid:'o2HwL0epw5i5Jr4tKCJaOi6DIDGk',
         orderId:'20150806125346',

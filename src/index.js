@@ -12,7 +12,7 @@ import MongooseStore from './lib/session-mongoose';
 export default ()=>{
     const app = new Koa();
     app.keys = ['app-secret-key'];
-    // app.proxy = true;
+    app.proxy = true;
     /**
      * error信息优化
      * */

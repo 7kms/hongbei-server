@@ -7,7 +7,7 @@ const {
     key,
     mch_id
 } = config.wechat;
-const notify_url = 'https://server.hddxyy.cn/client/goods';
+const notify_url = 'https://server.hddxyy.cn/wechat/pay_notify';
 const prepay_url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
 
 const getClientPayConfig = (prepay_id)=>{

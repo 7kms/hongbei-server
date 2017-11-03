@@ -8,6 +8,7 @@ import course from './course';
 
 import feed from './feed';
 import order from './orders';
+import wechat from './wechat';
 import client from './client';
 import { checkToken } from '../controllers/client/token';
 
@@ -24,6 +25,7 @@ export default () => {
     router.use('/course', course.routes())
     router.use('/feed', feed.routes())
     router.use('/orders', order.routes())
+    router.use('/wechat', wechat.routes())
     router.use('/client', checkToken, client.routes())
     router.use(router.allowedMethods())
     return router.routes()

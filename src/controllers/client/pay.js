@@ -50,7 +50,7 @@ export const prepay = async ({openid,orderId,desc,totalPrice,spbill_create_ip})=
         body: desc,
         out_trade_no: orderId,
         // fee_type: 'CNY',
-        total_fee: parseInt(totalPrice * 1000),
+        total_fee: parseInt(totalPrice * 100),
         // spbill_create_ip: '103.36.220.55',
         spbill_create_ip,
         notify_url,

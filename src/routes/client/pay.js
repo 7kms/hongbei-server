@@ -7,7 +7,7 @@ router.post('/',async (ctx)=>{
    let {_id} = ctx.request.body;
    console.log(ctx.request.ip,ctx.request.ips,ctx.request.headers)
    let res = await prepay({
-        openid:'oMoXq0DySBQ947KH-YRKdVmK53-o',
+        openid:'oFm4h0WvnQWB4ocFmdPzsWywlE8c',
         orderId:'20150806125346',
         desc:'德胜村',
         totalPrice:566,

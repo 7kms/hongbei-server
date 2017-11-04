@@ -28,6 +28,8 @@ export let insert = async (ctx)=>{
         }
         cartRemove(user,cart_ids)
     }catch(e){
+        console.log(e)
+        global.__logger__.error(e);
         ctx.status = 500
         ctx.body={
             code:500,

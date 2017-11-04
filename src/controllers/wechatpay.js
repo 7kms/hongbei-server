@@ -23,4 +23,5 @@ export const notify = async (ctx)=>{
             return_msg: '签名失败'
         })
     }
+    console.log('============ notify end===============')
 }

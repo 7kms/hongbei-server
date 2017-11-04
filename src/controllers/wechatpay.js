@@ -1,5 +1,6 @@
 import Order from '../models/client/order';
 import {json2xml,verifySign} from '../utils';
+import {changeSales} from './cakes'
 export const notify = async (ctx)=>{
     console.log('============notify===============')
     let {xml} = ctx.req.body;
@@ -12,6 +13,7 @@ export const notify = async (ctx)=>{
     if(verifySign(xml) && order.totalPrice * 100 == total_fee){
         console.log('success')
         await Order.update({ _id: out_trade_no}, { $set: {paid: true}});
+        changeSales(order.goods);
         ctx.body = json2xml({
             return_code: 'SUCCESS',
             return_msg: 'OK'

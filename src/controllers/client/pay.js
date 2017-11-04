@@ -1,7 +1,7 @@
 import request from 'request';
 import config from '../../../config';
 import crypto from 'crypto';
-import {json2xml,parseXml} from '../../utils'
+import {json2xml,parseXml} from '../../utils';
 const {
     appid,
     key,

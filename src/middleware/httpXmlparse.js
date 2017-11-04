@@ -2,11 +2,6 @@
 import {parseXml} from '../utils'
 const parse = ()=>{
     return async (ctx, next) => {
-        console.log('ctx.method type' )
-        console.log(ctx)
-        console.log(ctx.is('xml'))
-        console.log(ctx.is('text/xml'))
-        console.log('ctx.method type' )
         if (ctx.method == 'POST' && (ctx.is('xml') || ctx.is('text/xml'))) {
             let promise = new Promise(function (resolve, reject) {
                 let buf = ''

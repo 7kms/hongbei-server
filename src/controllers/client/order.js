@@ -1,7 +1,7 @@
 
 import Order from '../../models/client/order';
 import User from '../../models/client/user';
-import {changeSales} from '../cakes'
+// import {changeSales} from '../cakes'
 import {remove as cartRemove} from './cart';
 import {prepay} from './pay';
 
@@ -10,12 +10,21 @@ export let insert = async (ctx)=>{
     let { address, goods, cart_ids, totalPrice } = ctx.request.body;
     let order = new Order({user:user._id,address,goods,totalPrice});
     try{
-        await order.save();
-        await changeSales(goods);
-        await prepay({goods,totalPrice});
-        ctx.body={
+        let newOrder = await order.save();
+        let {openId} = user.wechatInfo;
+        let {_id,totalPrice} = newOrder;
+        let obj = {
+            openid:openId,
+            orderId:String(_id),
+            desc:'卷趣烘焙',
+            totalPrice,
+            spbill_create_ip: ctx.request.ip
+        }
+        let {clientConfig,sign} = await prepay(obj);
+        await Order.update({ _id: _id }, { $set: {sign}});
+        ctx.body = {
             code:200,
-            data:'success'
+            data:clientConfig
         }
         cartRemove(user,cart_ids)
     }catch(e){

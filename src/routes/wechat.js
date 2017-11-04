@@ -1,12 +1,9 @@
 import Router from 'koa-router';
 
-import {prepay} from '../controllers/client/pay'
+import { notify } from '../controllers/wechatpay';
+
 let router = new Router();
 
-router.post('/pay_notify',async (ctx)=>{
-    ctx.body={
-        success:1
-    }
-})
+router.post('/pay_notify', notify);
 
 export default router;

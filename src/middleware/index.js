@@ -9,7 +9,7 @@ import parseQurery from './httpJsonQuery.js';
 
 export default () => {
     return compose([
-        serve(resolve(__dirname,'../../uploads')),
+        serve(resolve(__dirname,'../../uploads'),{maxage:30*86400*1000}),
         koaBody({ multipart: true }),
         parseQurery()
     ])

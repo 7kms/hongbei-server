@@ -10,6 +10,7 @@ export let checkToken =  async(ctx,next)=>{
       let {_id} = jwt.verify(token, config.jwt.cert);
       ctx._id = _id
     }catch(e){
+      global.__logger__.error(e);
       console.log(e)
     }
   }

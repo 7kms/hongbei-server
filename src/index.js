@@ -5,10 +5,10 @@ import Koa from 'koa';
 import middleware from './middleware';
 import routes from './routes';
 import onerror from 'koa-onerror';
-import {logger,print} from './utils/index'
+import {logger,print} from './utils/index';
 import session from 'koa-session';
 import MongooseStore from './lib/session-mongoose';
-
+global.__logger__ = logger;
 export default ()=>{
     const app = new Koa();
     app.keys = ['app-secret-key'];

@@ -55,8 +55,8 @@ export let remove = async (user,cart_ids)=>{
         }
     })
     if(flag){
-        let res = await Cart.remove({_id:{$in:cart_ids}})
-        console.log(res)
+        await Cart.remove({_id:{$in:cart_ids}})
+        // console.log(res)
     }
 }
 

@@ -1,7 +1,6 @@
 import request from 'request';
 import config from '../../../config';
-import crypto from 'crypto';
-import {json2xml,parseXml} from '../../utils';
+import {json2xml,parseXml,getSign} from '../../utils';
 const {
     appid,
     key,
@@ -98,15 +97,6 @@ export const prepay = async ({openid,orderId,desc,totalPrice,spbill_create_ip})=
         throw new Error(e);
     }
     
-}
-/**
- * 对指定字符串进行md5加密
- * @param {String} str 
- */
-const getSign = (str)=>{
-    console.log(str)
-    let hash = crypto.createHash('md5').update(str,'utf8');
-    return hash.digest('hex').toUpperCase();
 }
 
 /**

@@ -20,8 +20,8 @@ export let insert = async (ctx)=>{
             totalPrice,
             spbill_create_ip: ctx.request.ip
         }
-        let {clientConfig,sign} = await prepay(obj);
-        await Order.update({ _id: _id }, { $set: {sign}});
+        let {clientConfig} = await prepay(obj);
+        // await Order.update({ _id: _id }, { $set: {sign}});
         ctx.body = {
             code:200,
             data:clientConfig

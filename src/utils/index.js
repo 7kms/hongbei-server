@@ -2,7 +2,10 @@ import Logger from 'mini-logger'
 import debug from 'debug'
 import config from '../../config'
 import xml2js from 'xml2js';
-
+import crypto from 'crypto';
+const {
+    key
+} = config.wechat;
 /**
  * log记录 用法: logger.error(new Error(''))
  * */
@@ -75,3 +78,24 @@ export const parseXml = (xml)=>{
     });
     return res;
 } 
+
+export const verifySign = (obj)=>{
+   let originSign = obj.sign;
+   delete obj.sign;
+   let arr = Object.keys(obj).sort().map(item => {
+        return `${item}=${obj[item]}`;
+    });
+    let str = arr.join('&') + '&key=' + key;
+    let new_sign = getSign(str);
+    return originSign == new_sign;
+}
+
+/**
+ * 对指定字符串进行md5加密
+ * @param {String} str 
+ */
+const getSign = (str)=>{
+    console.log(str)
+    let hash = crypto.createHash('md5').update(str,'utf8');
+    return hash.digest('hex').toUpperCase();
+}

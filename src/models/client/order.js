@@ -12,7 +12,6 @@ const schema = new Schema({
         type: String,
         required: true
     },
-    sign: String,
     paid: {
         type: Boolean,
         default: false

@@ -143,3 +143,4 @@ fabric.properties
 
 #logic
 uploads/*
+/config/index.js

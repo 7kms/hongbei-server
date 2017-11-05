@@ -41,7 +41,22 @@ export let cakeList = async (ctx)=>{
         total
     }
 }
-
+export let cakeListClient = async (ctx)=>{
+    console.log(ctx.request.query)
+    let { limit=10, skip=0, options={},projections={}} = ctx.request.query;
+    options.onSale = true;
+    console.log(options);
+    let total = await Cake.find({$and:[options,{$or:[{isRemoved:false},{isRemoved:{$exists:false}}]}]},projections).count()
+    let arr = await Cake.find({$and:[options,{$or:[{isRemoved:false},{isRemoved:{$exists:false}}]}]},projections)
+    .populate('category','name')
+    .limit(parseInt(limit))
+    .skip(parseInt(skip))
+    .sort({updatedAt:-1});
+    ctx.body = {
+        data: arr,
+        total
+    }
+}
 export let cakeInsert = async (ctx)=>{
     let obj = {
             cover:'',

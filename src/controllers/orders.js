@@ -29,6 +29,7 @@ export let orderDetail = async (ctx)=>{
 export let orderList = async (ctx)=>{
     let { limit=10, skip=0, options={},projections={}} = ctx.request.query;
     console.log(options);
+    options.paid = true;
     let total = await Order.find({$and:[options,{$or:[{isRemoved:false},{isRemoved:{$exists:false}}]}]},projections).count()
     let arr = await Order.find({$and:[options,{$or:[{isRemoved:false},{isRemoved:{$exists:false}}]}]},projections)
     .populate('user','wechatInfo')

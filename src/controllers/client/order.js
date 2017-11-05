@@ -38,6 +38,50 @@ export let insert = async (ctx)=>{
     }
 }
 
+/**
+ * 重新支付未支付的订单
+ * @param {} ctx 
+ */
+export let repay = async (ctx)=>{
+    let user = await User.findById(ctx._id)
+    let { _id } = ctx.params;
+    let newOrder = Order.findOne({user:user._id,_id});
+    if(!newOrder){
+        ctx.status = 500
+        ctx.body={
+            code:500,
+            err_msg:'订单错误'
+        }
+        return false;
+    }
+    try{
+        let {openId} = user.wechatInfo;
+        let {_id,totalPrice} = newOrder;
+        let obj = {
+            openid: openId,
+            orderId:String(_id),
+            desc:'卷趣烘焙',
+            totalPrice,
+            spbill_create_ip: ctx.request.ip
+        }
+        let {clientConfig} = await prepay(obj);
+        // await Order.update({ _id: _id }, { $set: {sign}});
+        ctx.body = {
+            code:200,
+            data:clientConfig
+        }
+    }catch(e){
+        console.log(e)
+        global.__logger__.error(e);
+        ctx.status = 500
+        ctx.body={
+            code:500,
+            data:e
+        }
+    }
+}
+
+
 export let remove = async (ctx)=>{
     let user = await User.findById(ctx._id)
     let { ids } = ctx.request.body

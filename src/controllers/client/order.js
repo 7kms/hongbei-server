@@ -24,7 +24,10 @@ export let insert = async (ctx)=>{
         // await Order.update({ _id: _id }, { $set: {sign}});
         ctx.body = {
             code:200,
-            data:clientConfig
+            data:{
+                _id,
+                config: clientConfig
+            }
         }
         cartRemove(user,cart_ids)
     }catch(e){
@@ -45,7 +48,8 @@ export let insert = async (ctx)=>{
 export let repay = async (ctx)=>{
     let user = await User.findById(ctx._id)
     let { _id } = ctx.params;
-    let newOrder = Order.findOne({user:user._id,_id});
+    console.log(_id,user)
+    let newOrder = await Order.findOne({user:user._id,_id});
     if(!newOrder){
         ctx.status = 500
         ctx.body={

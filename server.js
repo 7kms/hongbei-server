@@ -4,7 +4,7 @@ import { connectDatabase } from './src/db';
 
 import config from './config';
 let {mongo} = config;
-const dburl = `mongodb://${mongo.server}:${mongo.port}/${mongo.db}`;
+const dburl = `mongodb://${mongo.user}:${mongo.pass}@${mongo.server}:${mongo.port}/${mongo.db}`;
 const port = process.env.PORT || 4000;
 
 (async() => {
@@ -15,6 +15,7 @@ const port = process.env.PORT || 4000;
     await app().listen(port,'0.0.0.0');
     console.log(`Server started on port ${port}`);
   } catch (error) {
+    console.log(error)
     console.log('Unable to connect to database');
     process.exit()
   }

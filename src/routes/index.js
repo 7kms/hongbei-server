@@ -4,6 +4,7 @@ import cake from './cakes';
 import token from './token';
 import category from './category';
 import activity from './activity';
+import promotion from './promotion';
 import course from './course';
 
 import feed from './feed';
@@ -22,6 +23,7 @@ export default () => {
     router.use('/cakes', cake.routes())
     router.use('/category', category.routes())
     router.use('/activity', activity.routes())
+    router.use('/promotion', promotion.routes())
     router.use('/course', course.routes())
     router.use('/feed', feed.routes())
     router.use('/orders', order.routes())

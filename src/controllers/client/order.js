@@ -7,8 +7,8 @@ import {prepay} from './pay';
 
 export let insert = async (ctx)=>{
     let user = await User.findById(ctx._id)
-    let { address, goods, cart_ids, totalPrice } = ctx.request.body;
-    let order = new Order({user:user._id,address,goods,totalPrice});
+    let { address, goods, cart_ids, totalPrice,promotion } = ctx.request.body;
+    let order = new Order({user:user._id,address,goods,totalPrice,promotion});
     try{
         let newOrder = await order.save();
         let {openId} = user.wechatInfo;

@@ -7,6 +7,7 @@ const schema = new Schema({
         required: true
     },
     address:{},
+    promotion:{},
     goods:[],
     totalPrice:{
         type: String,

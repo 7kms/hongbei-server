@@ -7,6 +7,7 @@ import course from './course'
 import feed from './feed'
 import category from './category'
 import activity from './activity'
+import promotion from './promotion'
 import pay from './pay'
 import { needLogin } from '../../controllers/client/token'
 let router = new Router()
@@ -17,6 +18,7 @@ router.use('/course', course.routes())
 router.use('/feed', needLogin, feed.routes())
 router.use('/category', category.routes())
 router.use('/activity', activity.routes())
+router.use('/promotion', promotion.routes())
 router.use('/pay', pay.routes())
 router.use('/cart', needLogin, carts.routes())
 router.use('/order', needLogin, orders.routes())

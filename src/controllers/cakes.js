@@ -1,14 +1,21 @@
 import Cake from '../models/cake';
+import Promotion from '../models/promotion';
 
 export let cakeDetail = async (ctx)=>{
     console.log(ctx.params.id)
     try{
-        let res = await Cake.findOne({_id: ctx.params.id,$or:[{isRemoved:false},{isRemoved:{$exists:false}}]})
+        let res = await Cake.findOne({_id: ctx.params.id,$or:[{isRemoved:false},{isRemoved:{$exists:false}}]});
+        let promotion = await Promotion.findOne();
+        
+        res.promotion = promotion;
         console.log(res)
         if(res){
             ctx.status = 200
             ctx.body = {
-                data: res
+                data: {
+                    res,
+                    promotion
+                }
             }
         }else{
             ctx.status = 417

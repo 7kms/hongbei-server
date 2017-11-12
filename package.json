@@ -12,6 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@alicloud/dybaseapi": "^1.0.0",
+    "@alicloud/dysmsapi": "^1.0.0",
+    "@alicloud/mns": "^1.0.0-beta5",
+    "ali-mns": "^2.6.4",
     "babel-core": "^6.25.0",
     "debug": "^2.6.8",
     "jsonwebtoken": "^7.4.1",

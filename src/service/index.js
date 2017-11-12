@@ -65,14 +65,14 @@ const getSignature = (DATE)=>{
     const signature = crypto.createHmac('sha1', config.AccessKeySecret)
     .update(str)
     .digest('base64');
-    console.log(signature)
+    // console.log(signature)
     return signature;
 }
 const generateHeader = ()=>{
     const DATE = new Date().toUTCString();
     // const DATE = 'Sun, 12 Nov 2017 17:44:21 GMT';
     const Authorization = `MNS ${config.AccessKeyId}:${getSignature(DATE)}`
-    console.log(Authorization)
+    // console.log(Authorization)
     return {
         Authorization,
         // 'Content-Length': xml.length,
@@ -91,7 +91,6 @@ export const sendSMS = (str)=>{
         }
     }
     let xml = json2xml(obj);
-    console.log(xml)
     return new Promise((resolve,reject)=>{
         request({
             method:'POST',

@@ -5,7 +5,6 @@ import {sendSMS} from '../service';
 export const notify = async (ctx)=>{
     console.log('============notify===============')
     let {xml} = ctx.req.body;
-    console.log(xml);
     ctx.res.type = 'text/xml';
     const {out_trade_no,total_fee} = xml;
 

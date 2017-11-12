@@ -15,9 +15,9 @@ export const notify = async (ctx)=>{
         console.log('success')
         await Order.update({ _id: out_trade_no}, { $set: {paid: true}});
         changeSales(order.goods);
-        setTimeout(()=>{
-            sendSMS(` ￥${order.totalPrice}元 `);
-        },1000)
+        // setTimeout(()=>{
+        //     sendSMS(` ￥${order.totalPrice}元 `);
+        // },1000)
         
         ctx.body = json2xml({
             return_code: 'SUCCESS',

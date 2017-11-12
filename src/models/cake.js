@@ -25,7 +25,14 @@ const CakeSchema = new Schema({
        type: Boolean,
        default: false
    },
-   sales: Number,
+   sales: {
+        type: Number,
+        default: 0
+    },
+   displaySales: {
+       type: Number,
+       default: 0
+   },
    category: {
        type: Schema.Types.ObjectId,
        ref: 'Category'

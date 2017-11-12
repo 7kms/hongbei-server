@@ -75,6 +75,7 @@ export let cakeInsert = async (ctx)=>{
             isPromotion: false,
             promotionUrl: '',
             sales: 0,
+            displaySales: 0,
             onSale: false,
             category: ''
     }
@@ -133,6 +134,7 @@ export let changeSales = async (goodArr)=>{
     for(let i in obj){
         let good = await Cake.findById(i);
         good.sales += obj[i];
-        await Cake.findOneAndUpdate({_id:i},{sales: good.sales})
+        good.displaySales += obj[i];
+        await Cake.findOneAndUpdate({_id:i},{sales: good.sales,displaySales:good.displaySales})
     }
 }

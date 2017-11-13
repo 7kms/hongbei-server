@@ -1,7 +1,7 @@
 import Router from 'koa-router';
 
-import {prepay} from '../../controllers/client/pay'
-import {json2xml} from '../../utils';
+// import {prepay} from '../../controllers/client/pay'
+// import {json2xml} from '../../utils';
 let router = new Router();
 
 router.post('/',async (ctx)=>{
@@ -15,10 +15,11 @@ router.post('/',async (ctx)=>{
 //         spbill_create_ip:ctx.request.ip
 //    });
     ctx.response.type = 'xml';
-   ctx.body = json2xml({
-        return_code: 'SUCCESS',
-        return_msg: 'OK'
-   })
+//    ctx.body = json2xml({
+//         return_code: 'SUCCESS',
+//         return_msg: 'OK'
+//    })
+   ctx.body=`<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>`
 })
 
 export default router;

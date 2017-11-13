@@ -14,7 +14,7 @@ router.post('/',async (ctx)=>{
 //         totalPrice:566,
 //         spbill_create_ip:ctx.request.ip
 //    });
-    ctx.response.type = 'text/xml';
+    ctx.response.type = 'xml';
    ctx.body = json2xml({
         return_code: 'SUCCESS',
         return_msg: 'OK'

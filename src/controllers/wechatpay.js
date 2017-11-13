@@ -10,24 +10,29 @@ export const notify = async (ctx)=>{
 
     let order = await Order.findById(out_trade_no);
     console.log(order)
-    if(verifySign(xml) && order.totalPrice * 100 == total_fee){
-        console.log('success')
-        await Order.update({ _id: out_trade_no}, { $set: {paid: true}});
-        changeSales(order.goods);
+    if(order.paid){
         ctx.body = json2xml({
             return_code: 'SUCCESS',
             return_msg: 'OK'
         });
-        console.log(ctx.body)
-        setTimeout(()=>{
-            sendSMS(` ￥${order.totalPrice}元 `);
-        },1000)
     }else{
-        console.log('签名失败')
-        ctx.body = json2xml({
-            return_code: 'FAIL',
-            return_msg: '签名失败'
-        })
+        if(verifySign(xml) && order.totalPrice * 100 == total_fee){
+            console.log('success')
+            await Order.update({ _id: out_trade_no}, { $set: {paid: true}});
+            changeSales(order.goods);
+            ctx.body = json2xml({
+                return_code: 'SUCCESS',
+                return_msg: 'OK'
+            });
+            sendSMS(` ￥${order.totalPrice}元 `);
+        }else{
+            console.log('签名失败')
+            ctx.body = json2xml({
+                return_code: 'FAIL',
+                return_msg: '签名失败'
+            })
+        }
     }
+    console.log(ctx.body)
     console.log('============ notify end===============')
 }

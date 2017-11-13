@@ -2,22 +2,19 @@ import xml2js from 'xml2js';
 import crypto from 'crypto';
 import request from 'request';
 
+import config from '../../config'
 
-const config = {
-    AccountId: '31583261',
-    AccessKeyId: 'LTAIOAVQvYJYIVxo',
-    AccessKeySecret: 'spN49qqmN1959OlqSsYWoApHZpHt7x',
-    TopicName: 'sms.topic-cn-hangzhou'
-}
-const CanonicalizedResource = `/topics/${config.TopicName}/messages`;
+const {sms} = config;
+
+const CanonicalizedResource = `/topics/${sms.TopicName}/messages`;
 // http(s)://31583261.mns.cn-hangzhou.aliyuncs.com/
-const url = 'http://' + config.AccountId + '.mns.cn-hangzhou.aliyuncs.com' + CanonicalizedResource;
+const url = 'http://' + sms.AccountId + '.mns.cn-hangzhou.aliyuncs.com' + CanonicalizedResource;
 
-const DirectSMS ={
+const DirectSMS = {
     FreeSignName: '河地大校友云',
-    TemplateCode: 'SMS_109535456',
+    TemplateCode: sms.TemplateCode,
     Type: 'singleContent',
-    Receiver: '15901126559',
+    Receiver: sms.Receiver,
     SmsParams: ''
 }
 
@@ -62,7 +59,7 @@ const getSignature = (DATE)=>{
     + CanonicalizedMNSHeaders
     + CanonicalizedResource;
 
-    const signature = crypto.createHmac('sha1', config.AccessKeySecret)
+    const signature = crypto.createHmac('sha1', sms.AccessKeySecret)
     .update(str)
     .digest('base64');
     // console.log(signature)
@@ -71,14 +68,14 @@ const getSignature = (DATE)=>{
 const generateHeader = ()=>{
     const DATE = new Date().toUTCString();
     // const DATE = 'Sun, 12 Nov 2017 17:44:21 GMT';
-    const Authorization = `MNS ${config.AccessKeyId}:${getSignature(DATE)}`
+    const Authorization = `MNS ${sms.AccessKeyId}:${getSignature(DATE)}`
     // console.log(Authorization)
     return {
         Authorization,
         // 'Content-Length': xml.length,
         'Content-Type': 'text/xml',
         Date: DATE,
-        Host: config.AccountId + '.mns.cn-hangzhou.aliyuncs.com',
+        Host: sms.AccountId + '.mns.cn-hangzhou.aliyuncs.com',
         'x-mns-version': '2015-06-06'
     }
 }
